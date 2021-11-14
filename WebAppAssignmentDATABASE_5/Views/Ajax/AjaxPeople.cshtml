@@ -1,0 +1,29 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@section scripts {
+    <script type="text/javascript" src="~/jquery/jquery.js"></script>
+    <script type="text/javascript" src="~/js/PeopleAjaxScript.js"></script>
+}
+@{
+    ViewBag.Title = "Ajax";
+}
+@section styles {
+    <link href="~/css/Style.css" rel="stylesheet" type="text/css" />
+    
+}
+<div>
+    <h1 id="header">People</h1>
+    <button id="load-people-btn" class="btn">People</button>
+
+    <input type="text" name="id" value="" id="id-input" />
+
+    <button id="details-btn" class="btn">Details</button>
+    <button id="delete-btn" class="btn">Delete</button>
+
+    <div id="people">
+
+    </div>
+
+    <p id="response"></p>
+</div>

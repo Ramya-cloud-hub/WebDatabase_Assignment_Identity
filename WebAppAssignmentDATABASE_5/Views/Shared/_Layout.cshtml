@@ -1,0 +1,75 @@
+﻿@using Microsoft.AspNetCore.Authorization;
+@inject IAuthorizationService AuthorizationService; 
+@{ 
+   
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @RenderSection("styles", false)
+    <link href="/css/Style.css" rel="stylesheet" />
+    <link href="/bootstrap/css/bootstrap-grid.css" rel="stylesheet" />
+    <link href="/bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body style="margin-left:150px;max-width:1024px;">
+    <div class="container">
+    <div class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">@ViewBag.Title</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto" style="color:black">
+                <li class="nav-item active">
+                    <a class="nav-link" asp-controller="Countries"
+                       asp-action="CountriesIndex" style="color:black">Country</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" asp-controller="Cities"
+                       asp-action="CitiesIndex" style="color:black">City</a>
+                </li>
+                <li class="nav-item active">
+
+                    <a class="nav-link" asp-controller="People"
+                       asp-action="PeopleIndex" style="color:black">People</a>
+                </li>
+
+                <li class="nav-item active">
+                    <a class="nav-link" asp-controller="Language"
+                       asp-action="LanguageIndex" style="color:black">Language</a>
+                </li>
+
+                @if (User.IsInRole("Admin"))
+                {
+    <li class="nav-item active">
+        <a class="nav-link" asp-controller="Account"
+           asp-action="UserIndex" style="color:black">Users</a>
+    </li>
+}
+                @if (User.Identity.IsAuthenticated)
+                {
+    <li class="nav-item active">
+        <a class="nav-link" asp-controller="Account"
+           asp-action="LogOut" style="color:black">Logout</a>
+    </li>
+ }
+else
+{
+<li class="nav-item active">
+    <a class="nav-link" asp-controller="Account"
+       asp-action="LogIn" style="color:black">Login</a>
+</li>
+}
+            </ul>
+
+        </div>
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+
+    @RenderSection("scripts", false)
+    </div>
+</body>
+</html>

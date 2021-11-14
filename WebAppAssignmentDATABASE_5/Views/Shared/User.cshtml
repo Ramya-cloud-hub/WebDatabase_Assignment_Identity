@@ -1,0 +1,33 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model UserViewModel;
+@{
+}
+
+<tr>
+    <td>@Model.UserName</td>
+    <td>@Model.Birthday</td>
+    <td>@Model.Email</td>
+    <td>@Model.FullName</td>
+    <td>@Model.Id</td>
+    <td>
+        @foreach (string role in @Model.Roles)
+        {
+            <p>@role</p>
+        }
+    </td>
+    @if (!Model.Roles.Contains("Admin"))
+    {
+        <td><button id="@Model.UserName" class="make-admin-btn btn btn-primary">Make Admin</button></td>
+    }
+    else
+    {
+        <td></td>
+    }
+
+</tr>
+@if (ViewBag.ErrorMsg != null)
+{
+    <h3 id="make-admin-error">@ViewBag.ErrorMsg</h3>
+}

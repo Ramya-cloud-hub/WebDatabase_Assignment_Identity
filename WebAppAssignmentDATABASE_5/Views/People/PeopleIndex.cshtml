@@ -1,0 +1,116 @@
+﻿
+@model PeopleViewModel;
+@section styles {
+    <link href="~/css/Style.css" rel="stylesheet" type="text/css" />
+}
+@section scripts {
+    <script type="text/javascript" src="~/jquery/jquery.js"></script>
+    <script type="text/javascript" src="~/js/editScript.js"></script>
+}
+@{ ViewBag.Title = "People"; }
+
+
+<form id="filter-people" asp-controller="People" asp-action="FilterPeople" method="post">
+
+    <div class="form-group">
+        <label for="fields">Filter by:</label>
+        <input class="form-select" list="fields" asp-for="FieldName" name="FieldName" id="field">
+        <datalist id="fields">
+            <option value="FirstName" />
+
+        </datalist>
+    </div>
+
+    <div class="form-group">
+        <label for="SearchTerm">Search term:</label>
+        <input class="form-control" type="text" asp-for="SearchTerm" />
+    </div>
+    <br />
+    <br />
+</form>
+<div class="form-group">
+    <button class="btn btn-primary" type="submit" value="Filter">Filter</button>
+</div>
+<br/>
+<br/>
+
+
+
+
+<table id="people-table" class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Firstname</th>
+            <th scope="col">Lastname</th>
+            <th scope="col">City Name</th>
+            <th scope="col">Phonenumber</th>
+            <th scope="col">Personal Number</th>
+            <th scope="col">Languages</th>
+            <th scope="col">Action</th>
+            <th scope="col">Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var p in Model.People)
+        {
+<tr class="person-row" id="person-row-@p.Id">
+    <partial name="~/Views/Shared/PersonView.cshtml" model="p" />
+</tr>
+                <tr class="person-row edit-person" id="edit-person-@p.Id">
+                    <partial name="EditPerson" model="p" />
+                </tr>}
+
+    </tbody>
+
+</table>
+
+<div>
+
+    <form id="add-person" asp-controller="People" asp-action="AddPerson" method="post">
+        <div class="form-group">
+            <label for="FirstName">Firstname:</label>
+            <input class="form-control" type="text" name="FirstName" value="First name" />
+        </div>
+
+        <div class="form-group">
+            <label for="LastName">Lastname:</label>
+            <input class="form-control" type="text" name="LastName" value="Last name" />
+        </div>
+
+        <div class="form-group">
+            <label for="CityId">City:</label>
+            <select class="form-select" name="CityId" asp-items="ViewBag.Cities">
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="LanguageIds">Languages:</label>
+            <select class="form-select" name="LanguageIds" asp-items="ViewBag.Languages" multiple>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="PhoneNr">Phonenumber:</label>
+            <input class="form-control" type="text" name="PhoneNr" value="Phone number" />
+        </div>
+
+        <div class="form-group">
+            <label for="SocialSecurityNr">Social security number:</label>
+            <input class="form-control" type="text" name="SocialSecurityNr" value="YYMMDDXXXX" />
+        </div>
+
+        <br />
+        <br />
+
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit" name="name" value="Create">Create</button>
+        </div>
+    </form>
+
+</div>
+
+@if (ViewBag.ErrorMsg != null)
+{
+<h2>@ViewBag.ErrorMsg</h2>}
+

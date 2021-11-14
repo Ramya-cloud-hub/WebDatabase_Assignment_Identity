@@ -1,0 +1,47 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@section styles {
+    <link href="~/css/citycountrystyle.css" rel="stylesheet" type="text/css" />
+}
+@section scripts {
+    <script type="text/javascript" src="~/jquery/jquery.js"></script>
+    <script type="text/javascript" src="~/js/EditCountryScript.js"></script>
+}
+@model WebAppAssignmentDATABASE_5.Models.ViewModels.CountriesViewModel
+@{
+    ViewBag.Title = "Countries";
+
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Cities</th>
+            <th scope="col">Action</th>
+            <th scope="col">Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (WebAppAssignmentDATABASE_5.Models.ViewModels.CountryViewModel country in @Model.Countries)
+        {
+            <tr class="country-row" id="country-row-@country.Id">
+                <partial name="Country" model="@country" />
+            </tr>
+            <tr class="edit-country-row" id="edit-country-@country.Id">
+                <partial name="EditCountry" model="@country" />
+            </tr>
+        }
+    </tbody>
+</table>
+<h2 id="error-msg"></h2>
+<form class="create-form" asp-controller="Countries" asp-action="CreateCountry" method="post">
+    <div class="form-group">
+        <label class="form-text" for="Name">Name:</label>
+        <input class="form-control" type="text" name="name" value="" />
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit" name="submit" value="Create">Create</button>
+    </div>
+</form>

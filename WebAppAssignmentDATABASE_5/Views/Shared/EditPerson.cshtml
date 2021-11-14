@@ -1,0 +1,58 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model WebAppAssignmentDATABASE_5.Models.ViewModels.PersonViewModel;
+@{
+}
+
+
+<td><input id="firstName-@Model.Id" type="text" name="FirstName" for="FirstName" value="@Model.FirstName" /></td>
+<td><input id="lastName-@Model.Id" type="text" name="LastName" for="LastName" value="@Model.LastName" /></td>
+<input type="text" name="Id" for="Id" value="@Model.Id" hidden />
+
+<td>
+    <select id="cityId-@Model.Id" for="CityId" name="CityId">
+        @foreach (SelectListItem city in ViewBag.Cities)
+        {
+
+            if (Model.City.Id.ToString().Equals(city.Value))
+            {
+                <option selected value="@city.Value">@city.Text</option>
+            }
+            else
+            {
+                <option value="@city.Value">@city.Text</option>
+            }
+        }
+    </select>
+</td>
+
+<td><input id="phoneNr-@Model.Id" type="text" name="PhoneNr" for="PhoneNr" value="@Model.PhoneNr" /></td>
+<td>@Model.SocialSecurityNr</td>
+
+
+<td>
+    <select id="languageIds-@Model.Id" name="LanguageIds" for="LanguageIds" multiple>
+        @foreach (SelectListItem language in ViewBag.Languages)
+        {
+
+            if (Model.Languages.Languages.Exists(l => l.Id.ToString().Equals(language.Value)))
+            {
+                <option selected value="@language.Value">@language.Text</option>
+            }
+            else
+            {
+                <option value="@language.Value">@language.Text</option>
+            }
+        }
+    </select>
+</td>
+
+<td><button type="submit" class="btn btn-primary edit-submit-btn" name="@Model.Id" value="Edit">Edit</button></td>
+
+<td class="td-btn">
+    <button id="@Model.Id" class="edit-btn btn-dark btn">
+        Cancel
+    </button>
+</td>
+

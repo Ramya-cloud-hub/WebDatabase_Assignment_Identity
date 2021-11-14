@@ -1,0 +1,35 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model WebAppAssignmentDATABASE_5.Models.ViewModels.PersonViewModel;
+
+@{
+}
+
+
+<td>@Model.FirstName</td>
+<td>@Model.LastName</td>
+<td>@Model.City.Name @Model.City.Country.Name</td>
+<td>@Model.PhoneNr</td>
+<td>@Model.SocialSecurityNr</td>
+<td>
+    @foreach (var language in @Model.Languages.Languages)
+    {
+        <p> @language.LanguageName</p>
+
+    }
+</td>
+<td>
+    @if (User.IsInRole("Admin"))
+    {
+        <a class="btn btn-danger" asp-controller="People" asp-action="RemovePerson" asp-route-id="@Model.Id">Remove</a>
+
+    }
+<td>
+    <button id="@Model.Id" class="edit-btn btn btn-primary">
+        Edit
+    </button>
+</td>
+
+

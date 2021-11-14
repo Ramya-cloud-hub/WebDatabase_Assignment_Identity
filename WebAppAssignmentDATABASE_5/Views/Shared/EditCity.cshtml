@@ -1,0 +1,34 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model WebAppAssignmentDATABASE_5.Models.ViewModels.CityViewModel;
+@{
+}
+<td><input id="Name-@Model.Id" type="text" name="Name" for="Name" value="@Model.Name" /></td>
+
+<input type="text" name="Id" for="Id" value="@Model.Id" hidden />
+
+<td>
+    <select id="CountryId-@Model.Id" for="CountryId" name="CityId">
+        @foreach (SelectListItem country in ViewBag.Countries)
+        {
+
+            if (Model.Country.Id.ToString().Equals(country.Value))
+            {
+                <option selected value="@country.Value">@country.Text</option>
+            }
+            else
+            {
+                <option value="@country.Value">@country.Text</option>
+            }
+        }
+    </select>
+</td>
+
+<td><button type="submit" class="btn btn-primary edit-submit-btn" name="@Model.Id" value="Edit">Edit</button></td>
+
+<td class="td-btn">
+    <button id="@Model.Id" class="edit-btn btn-dark btn">
+        Cancel
+    </button>
+</td>

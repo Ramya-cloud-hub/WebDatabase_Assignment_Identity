@@ -1,0 +1,51 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model WebAppAssignmentDATABASE_5.Models.ViewModels.CitiesViewModel;
+@section styles {
+    <link href="~/css/citycountrystyle.css" rel="stylesheet" type="text/css" />
+}
+@section scripts {
+    <script type="text/javascript" src="~/jquery/jquery.js"></script>
+    <script type="text/javascript" src="~/js/EditCityScript.js"></script>
+}
+@{
+    ViewBag.Title = "Cities";
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Country</th>
+            <th scope="col">Action</th>
+            <th scope="col">Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (WebAppAssignmentDATABASE_5.Models.ViewModels.CityViewModel city in @Model.Cities)
+        {
+            <tr class="city-row" id="city-row-@city.Id">
+                <partial name="City" model="@city" />
+            </tr>
+            <tr class="edit-city-row" id="edit-city-@city.Id">
+                <partial name="EditCity" model="@city" />
+            </tr>
+        }
+    </tbody>
+</table>
+<h2 id="error-msg"></h2>
+<form class="create-form" asp-controller="Cities" asp-action="CreateCity" method="post">
+    <div class="form-group">
+        <label for="Name" class="form-text">Name:</label>
+        <input class="form-control" type="text" name="name" value="" />
+    </div>
+    <div class="form-group">
+        <label for="CountryId" class="form-text">Country:</label>
+        <select class="form-select" name="CountryId" asp-items="ViewBag.Countries">
+        </select>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit" name="submit" value="Create">Create</button>
+    </div>
+</form>
